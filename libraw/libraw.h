@@ -149,6 +149,10 @@ class DllDef LibRaw
     const char *unpack_function_name();
     int get_decoder_info(libraw_decoder_info_t* d_info);
 
+    /* WF */
+    int                         wf_remove_banding();
+
+
   private:
 
     int FCF(int row,int col) { 
@@ -246,6 +250,12 @@ class DllDef LibRaw
 
     int         flip_index (int row, int col);
     void        gamma_curve (double pwr, double ts, int mode, int imax);
+
+    /* WF */
+    void        wf_bayer4_igauss_filter(int radius,       void* src_image, int src_imgmode, void* dst_image, int dst_imgmode);
+    void	wf_bayer4_green_blur   (int mode,         void* src_image, int src_imgmode, void* dst_image, int dst_imgmode);
+    void        wf_bayer4_block_filter (int* radius_list, void* src_image, int src_imgmode, void* dst_image, int dst_imgmode);
+    double	wf_filter_energy       (int r1_greenmode, int r1, int r2_greenmode, int r2);
 
 
 #ifdef LIBRAW_LIBRARY_BUILD 
